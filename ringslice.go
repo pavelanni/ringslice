@@ -8,10 +8,10 @@ func New[T any](s *[]T) RingSlice[T] {
 	return RingSlice[T]{source: s}
 }
 
-func (r RingSlice[T]) Value(i int) T {
+func (r RingSlice[T]) Value(i int) (int, T) {
 	s := *r.source
 	newIndex := (i%len(s) + len(s)) % len(s)
-	return s[newIndex]
+	return newIndex, s[newIndex]
 }
 
 func (r RingSlice[T]) SetValue(i int, v T) {
